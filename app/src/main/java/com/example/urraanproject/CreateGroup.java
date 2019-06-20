@@ -14,12 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.urraanproject.Common.CommonClass;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -29,46 +27,44 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Profile extends AppCompatActivity {
+public class CreateGroup extends AppCompatActivity {
 
-EditText Txt_name,Txt_country;
-
-Button Btn_Submit;
-String ProfileImageUrl;
-String Name,Country;
-Uri resultUri;
-ImageView ProfileImage;
+    EditText txtGroupName,txtGroupDescription;
+    Button btnBroupCreation;
+    String ProfileImageUrl;
+    ImageView groupImage;
+    Uri resultUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_main);
+        setContentView(R.layout.activity_create_group);
 
-
-initializeComponents();
-
-        Btn_Submit.setOnClickListener(new View.OnClickListener() {
+        inializedComponents();
+        btnBroupCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Name = Txt_name.getText().toString().trim();
-                Country =Txt_country.getText().toString().trim();
-                if(Name.isEmpty()){
-                    Txt_name.requestFocus();
-                    Txt_name.setError("Pleas enter Name");
-                } if(Country.isEmpty()){
-                    Txt_country.requestFocus();
-                    Txt_country.setError("Pleas enter Country");
+                String Group_name = txtGroupName.getText().toString().trim();
+                String Group_Description =txtGroupDescription.getText().toString().trim();
+                if(Group_name.isEmpty()){
+                    txtGroupName.requestFocus();
+                    txtGroupName.setError("Pleas enter Name");
+                } if(Group_Description.isEmpty()){
+                    txtGroupDescription.requestFocus();
+                    txtGroupDescription.setError("Pleas enter Country");
                 }else{
 
-                   // CommonClass.UserId
-                    final DatabaseReference ref=CommonClass.UserReference.child(CommonClass.UserId);
-                    Toast.makeText(Profile.this, ""+CommonClass.UserId, Toast.LENGTH_SHORT).show();
+                    // CommonClass.UserId
+                   final DatabaseReference ref= CommonClass.Group_Reference.child(CommonClass.UserId);
+                    Toast.makeText(CreateGroup.this, ""+CommonClass.UserId, Toast.LENGTH_SHORT).show();
                     Map<String,Object> map=new HashMap();
-                    map.put("name",Name);
-                    map.put("country",Country);
+                    map.put("name",Group_name);
+                    map.put("description",Group_Description);
                     ref.updateChildren(map);
-                   // CommonClass.UserReference.setValue(map);
-
+                    Toast.makeText(CreateGroup.this, "Group Creadted", Toast.LENGTH_SHORT).show();
+                    // CommonClass.UserReference.setValue(map);
+//                    Intent intent = new Intent(CreateGroup.this, AddMembers.class);
+//                    startActivity(intent);
+//                    finish();
 
                     if (resultUri != null) {
 
@@ -111,7 +107,7 @@ initializeComponents();
 
 
                     } else {
-                        Toast.makeText(Profile.this, "Please First add your image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateGroup.this, "Please First add your image", Toast.LENGTH_SHORT).show();
 
 
                         //Snackbar.make(rootLayout,"Please attach your image..",Snackbar.LENGTH_LONG).show();
@@ -122,15 +118,12 @@ initializeComponents();
                     }
 
 
-
-
                 }
-
 
             }
         });
 
-        ProfileImage.setOnClickListener(new View.OnClickListener() {
+        groupImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -138,17 +131,14 @@ initializeComponents();
                 startActivityForResult(intent, 1);
             }
         });
-
+    }
+    private void inializedComponents() {
+        txtGroupName=findViewById(R.id.txtGroupName);
+        txtGroupDescription=findViewById(R.id.txtGroupName);
+        btnBroupCreation=findViewById(R.id.btnGroupCreation);
+        groupImage=findViewById(R.id.groupImage);
     }
 
-    private void initializeComponents() {
-
-
-        Txt_name = findViewById(R.id.txtName);
-        Txt_country = findViewById(R.id.txtCountry);
-        Btn_Submit = findViewById(R.id.submitbtn);
-        ProfileImage=findViewById(R.id.imageView);
-    }
 
 
 
@@ -158,7 +148,7 @@ initializeComponents();
         if(requestCode == 1 && resultCode == Activity.RESULT_OK){
             final Uri imageUri = data.getData();
             resultUri = imageUri;
-            ProfileImage.setImageURI(resultUri);
+            groupImage.setImageURI(resultUri);
         }
     }
 }

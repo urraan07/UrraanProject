@@ -9,7 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CommonClass {
 
+    public static String verified="verified";
     public static String UserId=FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
     public static DatabaseReference UserReference=FirebaseDatabase.getInstance().getReference("user");
+    public static DatabaseReference Group_Reference=FirebaseDatabase.getInstance().getReference("Groups");
 
 }

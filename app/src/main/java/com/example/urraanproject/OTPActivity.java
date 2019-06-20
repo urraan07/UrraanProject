@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.example.urraanproject.Common.CommonClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -21,6 +22,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class OTPActivity extends AppCompatActivity {
@@ -71,11 +74,11 @@ public class OTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
+                            DatabaseReference userReference= CommonClass.UserReference.child(CommonClass.UserId);
+                            Map map=new HashMap();
+                            map.put("verify",CommonClass.verified);
+                            userReference.setValue(map);
 
-                            //String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            //DatabaseReference userReference= FirebaseDatabase.getInstance().getReference("user").child(uid);
-                            //userReference.setValue(uid);
-                            //Toast.makeText(OTPActivity.this, ""+uid, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(OTPActivity.this, Profile.class);
                             startActivity(intent);
                             finish();
