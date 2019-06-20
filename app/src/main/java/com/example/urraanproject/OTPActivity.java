@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -69,10 +71,15 @@ public class OTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            Intent intent = new Intent(OTPActivity.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+                            //String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            //DatabaseReference userReference= FirebaseDatabase.getInstance().getReference("user").child(uid);
+                            //userReference.setValue(uid);
+                            //Toast.makeText(OTPActivity.this, ""+uid, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(OTPActivity.this, Profile.class);
                             startActivity(intent);
+                            finish();
+                            return;
 
                         } else {
                             Toast.makeText(OTPActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

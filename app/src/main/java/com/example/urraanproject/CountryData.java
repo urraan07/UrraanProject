@@ -2,7 +2,7 @@ package com.example.urraanproject;
 
 public class CountryData {
 
-        public static final String[] countryNames = {"India", "Afghanistan", "Albania",
+        public static final String[] countryNames = {"Pakistan", "Afghanistan", "Albania",
                 "Algeria", "Andorra", "Angola", "Antarctica", "Argentina",
                 "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan",
                 "Bahrain", "Bangladesh", "Belarus", "Belgium", "Belize", "Benin",
@@ -47,7 +47,7 @@ public class CountryData {
                 "Holy See (vatican City State)", "Venezuela", "Viet Nam",
                 "Wallis And Futuna", "Yemen", "Zambia", "Zimbabwe"};
 
-        public static final String[] countryAreaCodes = {"91", "93", "355", "213",
+        public static final String[] countryAreaCodes = {"92", "93", "355", "213",
                 "376", "244", "672", "54", "374", "297", "61", "43", "994", "973",
                 "880", "375", "32", "501", "229", "975", "591", "387", "267", "55",
                 "673", "359", "226", "95", "257", "855", "237", "1", "238", "236",

@@ -29,6 +29,7 @@
             android:digits="0123456789"
             android:hint=" Phone no"
             android:maxLength="10"
+            android:inputType="number"
             android:textColorHint="@android:color/black" />
 
     </LinearLayout>
