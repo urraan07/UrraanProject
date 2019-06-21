@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.urraanproject.Common.ActivityMovementClass;
 import com.example.urraanproject.Common.CommonClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,40 +23,22 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener listener;
     private Spinner spinner;
     String verification="non";
+    ActivityMovementClass activityMovementClass;
     private EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+activityMovementClass=new ActivityMovementClass(RegisterActivity.this);
+if(activityMovementClass.getFlag()!=1){
 
-        DatabaseReference ref= CommonClass.UserReference.child(CommonClass.UserId);
+}else{
 
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists() && dataSnapshot.getChildrenCount()>0){
-                    Map<String,Object> map=(Map<String,Object>)dataSnapshot.getValue();
-                    if(map.get("Isverified")!=null){
-                        verification=map.get("Isverified").toString();
-                    }
-                    if(!verification.equals("verified")){
-
-                    }else{
-                        Intent intent = new Intent(RegisterActivity.this, Profile.class);
-                        startActivity(intent);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
+    Intent intent=new Intent(RegisterActivity.this,DashBoard.class);
+    startActivity(intent);
+    finish();
+    return;
+}
 
         setContentView(R.layout.activity_register);
 
@@ -88,5 +71,11 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
     }
 }

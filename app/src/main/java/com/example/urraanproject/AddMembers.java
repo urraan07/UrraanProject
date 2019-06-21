@@ -31,4 +31,15 @@ FloatingActionButton btn_Add_member;
 
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent=new Intent(AddMembers.this,DashBoard.class);
+        startActivity(intent);
+        finish();
+        return;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.urraanproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,5 +20,15 @@ public class Search_Member extends AppCompatActivity {
         txt_Phone = findViewById(R.id.textPhoenCard);
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent=new Intent(Search_Member.this,AddMembers.class);
+        startActivity(intent);
+        finish();
+        return;
     }
 }

@@ -74,10 +74,10 @@ public class OTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            DatabaseReference userReference= CommonClass.UserReference.child(CommonClass.UserId);
-                            Map map=new HashMap();
-                            map.put("verify",CommonClass.verified);
-                            userReference.setValue(map);
+//                            DatabaseReference userReference= CommonClass.UserReference.child(CommonClass.UserId);
+//                            Map map=new HashMap();
+//                            map.put("verify",CommonClass.verified);
+//                            userReference.setValue(map);
 
                             Intent intent = new Intent(OTPActivity.this, Profile.class);
                             startActivity(intent);
@@ -127,4 +127,11 @@ public class OTPActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
+    }
 }

@@ -9,8 +9,8 @@
 
     <ImageView
     android:id="@+id/groupImage"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+        android:layout_width="138dp"
+        android:layout_height="117dp"
     android:layout_marginTop="100dp"
     app:srcCompat="@android:drawable/btn_star_big_on" />
 
@@ -21,7 +21,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Group Name" />
+        android:hint="Enter Group Name" />
 
     <EditText
         android:id="@+id/txtGroupDescription"
@@ -30,7 +30,7 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enter Group Description" />
+        android:hint="Enter Group Description" />
 
     <Button
         android:id="@+id/btnGroupCreation"

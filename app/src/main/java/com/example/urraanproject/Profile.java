@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.urraanproject.Common.ActivityMovementClass;
 import com.example.urraanproject.Common.CommonClass;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +33,7 @@ import java.util.Map;
 public class Profile extends AppCompatActivity {
 
 EditText Txt_name,Txt_country;
-
+ActivityMovementClass activityMovementClass;
 Button Btn_Submit;
 String ProfileImageUrl;
 String Name,Country;
@@ -45,7 +46,7 @@ ImageView ProfileImage;
 
 
 initializeComponents();
-
+        activityMovementClass=new ActivityMovementClass(Profile.this);
         Btn_Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,13 +63,13 @@ initializeComponents();
 
                    // CommonClass.UserId
                     final DatabaseReference ref=CommonClass.UserReference.child(CommonClass.UserId);
-                    Toast.makeText(Profile.this, ""+CommonClass.UserId, Toast.LENGTH_SHORT).show();
                     Map<String,Object> map=new HashMap();
                     map.put("name",Name);
                     map.put("country",Country);
                     ref.updateChildren(map);
                    // CommonClass.UserReference.setValue(map);
 
+                    Toast.makeText(Profile.this, ""+CommonClass.UserId, Toast.LENGTH_SHORT).show();
 
                     if (resultUri != null) {
 
@@ -79,6 +80,7 @@ initializeComponents();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        Toast.makeText(Profile.this, "wdasdadsa", Toast.LENGTH_SHORT).show();
 
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
@@ -95,17 +97,19 @@ initializeComponents();
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                String downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
 
                                 Map newImage = new HashMap();
                                 newImage.put("profileImageUrl", downloadUrl.toString());
                                 ref.updateChildren(newImage);
-                                //simpleProgressBar.setVisibility(View.GONE);
+//
+//
+                               activityMovementClass.setFlag(1);
 
-//                                Intent intent=new Intent(Profile.this,Passenger_Dashboard.class);
-//                                startActivity(intent);
-//                                finish();
-//                                return;
+                                Intent intent=new Intent(Profile.this,DashBoard.class);
+                                startActivity(intent);
+                                finish();
+                                return;
                             }
                         });
 
@@ -113,20 +117,8 @@ initializeComponents();
                     } else {
                         Toast.makeText(Profile.this, "Please First add your image", Toast.LENGTH_SHORT).show();
 
-
-                        //Snackbar.make(rootLayout,"Please attach your image..",Snackbar.LENGTH_LONG).show();
-//                Intent intent = new Intent(Passenger_SettingsActivity.this, Passenger_Dashboard.class);
-//                startActivity(intent);
-//                finish();
-//                return;
                     }
-
-
-
-
                 }
-
-
             }
         });
 
@@ -146,7 +138,7 @@ initializeComponents();
 
         Txt_name = findViewById(R.id.txtName);
         Txt_country = findViewById(R.id.txtCountry);
-        Btn_Submit = findViewById(R.id.submitbtn);
+        Btn_Submit = findViewById(R.id.submitbtn1);
         ProfileImage=findViewById(R.id.imageView);
     }
 
@@ -160,5 +152,12 @@ initializeComponents();
             resultUri = imageUri;
             ProfileImage.setImageURI(resultUri);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        return;
     }
 }

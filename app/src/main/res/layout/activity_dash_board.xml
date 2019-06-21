@@ -4,29 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".DashBoard">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="138dp"
-        android:layout_height="117dp"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
-    <EditText
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name of User"
-        android:id="@+id/txtName"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Country"
-        android:id="@+id/txtCountry"/>
+        android:text="DshBoad" />
     <Button
+        android:id="@+id/CreateGroupbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="submit"
-        android:id="@+id/submitbtn1"/>
+        android:text="Create Group" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 
 </LinearLayout>

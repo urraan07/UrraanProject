@@ -61,14 +61,14 @@ public class CreateGroup extends AppCompatActivity {
                     map.put("description",Group_Description);
                     ref.updateChildren(map);
                     Toast.makeText(CreateGroup.this, "Group Creadted", Toast.LENGTH_SHORT).show();
-                    // CommonClass.UserReference.setValue(map);
-//                    Intent intent = new Intent(CreateGroup.this, AddMembers.class);
-//                    startActivity(intent);
-//                    finish();
+                     //CommonClass.UserReference.setValue(map);
+                    Intent intent = new Intent(CreateGroup.this, AddMembers.class);
+                    startActivity(intent);
+                    finish();
 
                     if (resultUri != null) {
 
-                        StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images").child(CommonClass.UserId);
+                        StorageReference filePath = FirebaseStorage.getInstance().getReference().child("group_images").child(CommonClass.UserId);
                         Bitmap bitmap = null;
                         try {
                             bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
@@ -91,7 +91,7 @@ public class CreateGroup extends AppCompatActivity {
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                String downloadUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
 
                                 Map newImage = new HashMap();
                                 newImage.put("profileImageUrl", downloadUrl.toString());
@@ -150,5 +150,14 @@ public class CreateGroup extends AppCompatActivity {
             resultUri = imageUri;
             groupImage.setImageURI(resultUri);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent=new Intent(CreateGroup.this,DashBoard.class);
+        startActivity(intent);
+        finish();
+        return;
     }
 }
