@@ -43,8 +43,8 @@ public class CreateGroup extends AppCompatActivity {
         btnBroupCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Group_name = txtGroupName.getText().toString().trim();
-                String Group_Description =txtGroupDescription.getText().toString().trim();
+              final   String Group_name = txtGroupName.getText().toString().trim();
+               final String Group_Description =txtGroupDescription.getText().toString().trim();
                 if(Group_name.isEmpty()){
                     txtGroupName.requestFocus();
                     txtGroupName.setError("Pleas enter Name");
@@ -57,18 +57,17 @@ public class CreateGroup extends AppCompatActivity {
                    final DatabaseReference ref= CommonClass.Group_Reference.child(CommonClass.UserId);
                     Toast.makeText(CreateGroup.this, ""+CommonClass.UserId, Toast.LENGTH_SHORT).show();
                     Map<String,Object> map=new HashMap();
-                    map.put("name",Group_name);
-                    map.put("description",Group_Description);
-                    ref.updateChildren(map);
-                    Toast.makeText(CreateGroup.this, "Group Creadted", Toast.LENGTH_SHORT).show();
-                     //CommonClass.UserReference.setValue(map);
-                    Intent intent = new Intent(CreateGroup.this, AddMembers.class);
-                    startActivity(intent);
-                    finish();
+                   // map.put("name",Group_name);
+                    //ref.updateChildren(map);
+                    //ref.child("ALL_GROUPS").setValue(map);
+                   // ref.child("ALL_GROUPS").child(Group_name).setValue(map);
+
 
                     if (resultUri != null) {
 
-                        StorageReference filePath = FirebaseStorage.getInstance().getReference().child("group_images").child(CommonClass.UserId);
+                        StorageReference filePath = FirebaseStorage.getInstance().getReference().child("group_images").child(CommonClass.UserId).child(Group_name);
+
+
                         Bitmap bitmap = null;
                         try {
                             bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), resultUri);
@@ -95,13 +94,17 @@ public class CreateGroup extends AppCompatActivity {
 
                                 Map newImage = new HashMap();
                                 newImage.put("profileImageUrl", downloadUrl.toString());
-                                ref.updateChildren(newImage);
+                                //ref.updateChildren(newImage);
+                               // Toast.makeText(CreateGroup.this, ""+Group_Description, Toast.LENGTH_SHORT).show();
+                                newImage.put("description",Group_Description);
+                                ref.child("ALL_GROUPS").child(Group_name).setValue(newImage);
                                 //simpleProgressBar.setVisibility(View.GONE);
 
-//                                Intent intent=new Intent(Profile.this,Passenger_Dashboard.class);
-//                                startActivity(intent);
-//                                finish();
-//                                return;
+                                 Toast.makeText(CreateGroup.this, "Group Creadted", Toast.LENGTH_SHORT).show();
+//                     //CommonClass.UserReference.setValue(map);
+                    Intent intent = new Intent(CreateGroup.this, AddMembers.class);
+                    startActivity(intent);
+                    finish();
                             }
                         });
 
@@ -134,7 +137,7 @@ public class CreateGroup extends AppCompatActivity {
     }
     private void inializedComponents() {
         txtGroupName=findViewById(R.id.txtGroupName);
-        txtGroupDescription=findViewById(R.id.txtGroupName);
+        txtGroupDescription=findViewById(R.id.txtGroupDescription);
         btnBroupCreation=findViewById(R.id.btnGroupCreation);
         groupImage=findViewById(R.id.groupImage);
     }

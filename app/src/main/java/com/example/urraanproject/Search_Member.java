@@ -16,8 +16,8 @@ public class Search_Member extends AppCompatActivity {
         setContentView(R.layout.activity_search__member);
 
         Search_Member =(SearchView) findViewById(R.id.Search);
-        txt_Name = findViewById(R.id.textNameCard);
-        txt_Phone = findViewById(R.id.textPhoenCard);
+        txt_Name = findViewById(R.id.TextName);
+        txt_Phone = findViewById(R.id.TextPhone);
 
 
     }
